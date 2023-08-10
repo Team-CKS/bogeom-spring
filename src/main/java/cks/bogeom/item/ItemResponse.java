@@ -80,6 +80,13 @@ public class ItemResponse {
 
     @Getter
     @Setter
+    public static class searchDTO {
+        private String itemName;
+        private String itemPrice;
+    }
+
+    @Getter
+    @Setter
     public static class testDTO {
         private String itemName;
     }

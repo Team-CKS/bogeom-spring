@@ -52,7 +52,10 @@ public class ItemRestController {
         System.out.println(latitude + ", " + longitude);
 
         //1. 이미지 전송-응답
-        String productName = itemService.searchWithImage(image, latitude, longitude);
+        ItemResponse.searchDTO searchDTO = itemService.searchWithImage(image, latitude, longitude);
+        String productName = searchDTO.getItemName();
+        String productPrice = searchDTO.getItemPrice();
+
 
 
         //2. url 크롤링
@@ -63,6 +66,8 @@ public class ItemRestController {
         } catch (Exception e){
             return new ResponseEntity<>(ApiUtils.error(e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
+
+//        return ResponseEntity.ok(ApiUtils.success(null));
     }
 
     //텍스트 검색
@@ -79,19 +84,19 @@ public class ItemRestController {
         }
     }
 
-    //Test용 응답
-    @PostMapping("/response")
-//    public ResponseEntity<?> search(@RequestBody @Valid ItemRequest.ImageDTO imageDTO , Errors errors) {
-    public ResponseEntity<?> searchResponse(@RequestParam("image") MultipartFile image, @RequestParam("latitude") double latitude, @RequestParam("longitude") double longitude) {
-
-//        userService.sameCheckEmail(emailCheckDTO.getEmail());
-        String filename = image.getOriginalFilename();
-        System.out.println(filename); //파일 이름
-        System.out.println(latitude + ", " + longitude);
-        ItemResponse.testDTO testDTO = new ItemResponse.testDTO();
-        testDTO.setItemName("해피바스 정말순한바디로션 400ml");
-        return ResponseEntity.ok(ApiUtils.success(testDTO));
-    }
+//    //Test용 응답
+//    @PostMapping("/response")
+////    public ResponseEntity<?> search(@RequestBody @Valid ItemRequest.ImageDTO imageDTO , Errors errors) {
+//    public ResponseEntity<?> searchResponse(@RequestParam("image") MultipartFile image, @RequestParam("latitude") double latitude, @RequestParam("longitude") double longitude) {
+//
+////        userService.sameCheckEmail(emailCheckDTO.getEmail());
+//        String filename = image.getOriginalFilename();
+//        System.out.println(filename); //파일 이름
+//        System.out.println(latitude + ", " + longitude);
+//        ItemResponse.testDTO testDTO = new ItemResponse.testDTO();
+//        testDTO.setItemName("해피바스 정말순한바디로션 400ml");
+//        return ResponseEntity.ok(ApiUtils.success(testDTO));
+//    }
 
 
     //    //주문 결과 확인
