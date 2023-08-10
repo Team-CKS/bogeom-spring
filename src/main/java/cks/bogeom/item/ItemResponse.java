@@ -1,10 +1,9 @@
 package cks.bogeom.item;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import lombok.ToString;
 
 public class ItemResponse {
 //    @Getter
@@ -23,4 +22,74 @@ public class ItemResponse {
 //            this.totalPrice = itemList.stream().mapToInt(item -> item.getOption().getPrice() * item.getQuantity()).sum();
 //        }
 //    }
+
+    @Getter
+    @Setter
+    @Builder
+    public static class searchAllDTO {
+        private ItemDTO item;
+        private ShopDTO shop;
+
+        @Getter
+        @Setter
+        public static class ItemDTO {
+            private String itemName;
+
+            public ItemDTO(String itemName) {
+                this.itemName = itemName;
+            }
+        }
+
+        @Getter
+        @Setter
+        public static class ShopDTO {
+            private ShopInfo enuri;
+            private ShopInfo danawa;
+            private ShopInfo naver;
+
+            @Builder
+            public ShopDTO(ShopInfo enuri, ShopInfo danawa, ShopInfo naver) {
+                this.enuri = enuri;
+                this.danawa = danawa;
+                this.naver = naver;
+            }
+
+            @Getter
+            @Setter
+            public static class ShopInfo {
+                private String detail;
+                private String list;
+                @Builder
+                public ShopInfo(String detail, String list) {
+                    this.detail = detail;
+                    this.list = list;
+                }
+            }
+        }
+
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class productInfoDTO{
+        private String url;
+        private String productName;
+        private int price;
+    }
+
+    @Getter
+    @Setter
+    public static class searchDTO {
+        private String itemName;
+        private String itemPrice;
+    }
+
+    @Getter
+    @Setter
+    public static class testDTO {
+        private String itemName;
+    }
+
+
 }
